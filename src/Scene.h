@@ -9,12 +9,11 @@ class Application;
 
 class Scene {
 public:
-	Scene(Application& app, Renderer* renderer) : m_renderer(renderer), m_app(app) {}
+	Scene( Renderer* renderer ) : m_renderer(renderer) {}
 	virtual void draw() = 0;
 	virtual void update() = 0;
 protected:
 	Renderer* m_renderer;
-	Application& m_app;
 	Color m_backgroundColor = BLACK;
 };
 

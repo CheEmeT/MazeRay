@@ -6,17 +6,17 @@
 
 class MainMenuScene : public Scene {
 public:
-	MainMenuScene(Application& app, Renderer* renderer);
+	MainMenuScene( Renderer* renderer );
 	virtual void draw() override;
 	virtual void update() override;
 private:
 	UIManager m_uiManager;
 };
 
-void callbackClassic();
-void callbackSurvival();
-void callbackLevelCreator();
-void callbackOption();
-void callbackExit();
+static void callbackClassic();
+static void callbackSurvival();
+static void callbackEditor();
+static void callbackOption();
+static void callbackExit();
 
 #endif // !MAZERAY_MAINMENUSCENE

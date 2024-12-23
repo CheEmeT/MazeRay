@@ -1,8 +1,8 @@
 #include "MainMenuScene.h"
 #include "Globals.h"
 
-MainMenuScene::MainMenuScene(Application& app, Renderer* renderer):
-	Scene(app, renderer)
+MainMenuScene::MainMenuScene( Renderer* renderer ):
+	Scene(renderer)
 {
 	m_backgroundColor = GRAY;
 	//m_userInterface.addButton(100, 100, 400, 100, "Test label").setCallback([]() { g_application->requestExit(); });
@@ -12,11 +12,11 @@ MainMenuScene::MainMenuScene(Application& app, Renderer* renderer):
 	int btnStartX = (m_renderer->getWidth() - btnW )/2;
 	int btnStartY = 100;
 	int btnPad = 120;
-	m_uiManager.addButton(btnStartX, btnStartY + 0 * btnPad, btnW, btnH, "Classic", nullptr);
-	m_uiManager.addButton(btnStartX, btnStartY + 1 * btnPad, btnW, btnH, "Survival", nullptr);
-	m_uiManager.addButton(btnStartX, btnStartY + 2 * btnPad, btnW, btnH, "Level Creator", nullptr);
-	m_uiManager.addButton(btnStartX, btnStartY + 3 * btnPad, btnW, btnH, "Option", nullptr);
-	m_uiManager.addButton(btnStartX, btnStartY + 4 * btnPad, btnW, btnH, "Exit", nullptr).setCallback(callbackExit);
+	m_uiManager.addButton(btnStartX, btnStartY + 0 * btnPad, btnW, btnH, "Classic", &g_mainMenuButtonsDscr, nullptr);
+	m_uiManager.addButton(btnStartX, btnStartY + 1 * btnPad, btnW, btnH, "Survival", &g_mainMenuButtonsDscr, nullptr);
+	m_uiManager.addButton(btnStartX, btnStartY + 2 * btnPad, btnW, btnH, "Editor", &g_mainMenuButtonsDscr, callbackEditor);
+	m_uiManager.addButton(btnStartX, btnStartY + 3 * btnPad, btnW, btnH, "Option", &g_mainMenuButtonsDscr, nullptr);
+	m_uiManager.addButton(btnStartX, btnStartY + 4 * btnPad, btnW, btnH, "Exit", &g_mainMenuButtonsDscr, callbackExit);
 }
 
 void MainMenuScene::draw(){
@@ -25,51 +25,27 @@ void MainMenuScene::draw(){
 	m_renderer->drawUI(m_uiManager);
 }
 
-static MouseState aggregateMouseState() {
-	MouseState state{};
-	state.mouseX = GetMouseX();
-	state.mouseY = GetMouseY();
-
-	state.left = UP;
-	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))	
-		state.left = PRESSED;	
-	else if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-		state.left = DOWN;
-	else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-		state.left = RELEASED;	
-											
-	state.right = UP;
-	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))	
-		state.right = PRESSED;	
-	else if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))		
-		state.right = DOWN;	
-	else if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT)) 	
-		state.right = RELEASED;
-
-	return state;
-}
-
 void MainMenuScene::update(){
-	MouseState state = aggregateMouseState();
+	MouseState state = g_application->getWindow().getMouseState();
 	m_uiManager.processMouseInput(state);
 }
 
-void callbackClassic() {
+static void callbackClassic() {
 
 }
 
-void callbackSurvival(){
+static void callbackSurvival() {
 
 }
 
-void callbackLevelCreator(){
+static void callbackEditor() {
+	g_application->requestSceneChangeToEditor();
+}
+
+static void callbackOption() {
 
 }
 
-void callbackOption(){
-
-}
-
-void callbackExit(){
+static void callbackExit(){
 	g_application->requestExit();
 }

@@ -3,7 +3,8 @@
 Application::Application():
 	m_window(WIDTH, HEIGHT, TITLE),
 	m_renderer(WIDTH, HEIGHT),
-	m_mainMenuScene(*this, &m_renderer),
+	m_mainMenuScene(&m_renderer),
+	m_editorScene(&m_renderer),
 	m_currentScene(&m_mainMenuScene)
 {}
 
@@ -11,7 +12,12 @@ void Application::run(){
 
 
 	while (!m_window.shouldClose() && !m_exitRequest) {
-		//TODO Figure out better way of begin and end drawing
+		//Scene's change logic
+		if (m_requestedScene) {
+			m_currentScene = m_requestedScene;
+			m_requestedScene = nullptr;
+		}
+		//TODO: Figure out better way of begin and end drawing
 		BeginDrawing();
 
 		//Process input and update
@@ -24,4 +30,12 @@ void Application::run(){
 		EndDrawing();
 	}
 
+}
+
+void Application::requestSceneChangeToEditor(){
+	m_requestedScene = &m_editorScene;
+}
+
+void Application::requestSceneChangeToMainMenu(){
+	m_requestedScene = &m_mainMenuScene;
 }
