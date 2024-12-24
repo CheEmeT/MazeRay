@@ -1,7 +1,7 @@
 #ifndef MAZERAY_UIDESCRIPTORS
 #define MAZERAY_UIDESCRIPTORS
 
-namespace UIDescriptors {
+namespace Descriptors {
 
 	struct Color {
 		uint8_t r;
@@ -12,6 +12,7 @@ namespace UIDescriptors {
 
 	inline const Color Black	= { 0, 0, 0, 255 };
 	inline const Color White	= { 255, 255, 255, 255 };
+	inline const Color Gray		= { 140, 140, 140, 255 };
 	inline const Color Red		= { 240, 30, 30, 255 };
 
 	struct Border {
@@ -35,8 +36,19 @@ namespace UIDescriptors {
 		Font font;
 	};
 
+	struct TileState {
+		Color color;
+		Border border;
+	};
+
+	struct Tile {
+		TileState wall;
+		TileState pass;
+	};
+
 	struct Level {
 		Color background;
+		Tile tile;
 	};
 
 	struct Button {
@@ -91,6 +103,22 @@ namespace UIDescriptors {
 
 	inline Level DEFAULT_LEVEL_DESCRIPTOR = {
 		.background{ 165, 165, 165, 255 },
+		.tile{
+			.wall{
+				.color = Black,
+				.border{
+					.color = Gray,
+					.thickness = 2
+				}
+			},
+			.pass{
+				.color = White,
+				.border{
+					.color = Gray,
+					.thickness = 2
+				}
+			}
+		}
 	};
 
 	inline TileHighlighter DEFAULT_TILEHIGHLIGHTER_DESCRIPTOR{

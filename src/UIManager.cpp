@@ -3,19 +3,19 @@
 
 
 UIElements::Button& UIManager::addButton(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const char* label,
-	const UIDescriptors::Button* descriptor, void (*callback)())
+	const Descriptors::Button* descriptor, void (*callback)())
 {
 	return m_buttons.emplace_back(x, y, width, height, label, descriptor, callback);
 }
 
 UIElements::Level& UIManager::addLevel(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-	MazeLevel* mazeLevel, UIDescriptors::Level* descriptor, void(*callbackClick)(UIElements::Level& level, uint8_t xi, uint8_t yi))
+	MazeLevel* mazeLevel, Descriptors::Level* descriptor, void(*callbackClick)(UIElements::Level& level, uint8_t xi, uint8_t yi))
 {
 	m_level = new UIElements::Level( x, y, width, height, mazeLevel, descriptor, callbackClick );
 	return *m_level;
 }
 
-UIElements::TileHighlighter& UIManager::addTileHighlighter(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const UIDescriptors::TileHighlighter* descriptor)
+UIElements::TileHighlighter& UIManager::addTileHighlighter(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const Descriptors::TileHighlighter* descriptor)
 {
 	m_highlighter = new UIElements::TileHighlighter( x,  y, width, height, descriptor );
 	return *m_highlighter;

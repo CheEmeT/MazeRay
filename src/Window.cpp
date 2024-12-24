@@ -42,3 +42,8 @@ MouseState Window::getMouseState(){
 
 	return state;
 }
+
+bool Window::isResized()
+{
+	return IsWindowResized();
+}

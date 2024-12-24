@@ -5,7 +5,7 @@
 namespace UIElements {
 
 	Button::Button(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const char* label,
-		const UIDescriptors::Button* descriptor, void(*callbackClick)()) :
+		const Descriptors::Button* descriptor, void(*callbackClick)()) :
 		m_posX(x),
 		m_posY(y),
 		m_width(width),
@@ -15,7 +15,7 @@ namespace UIElements {
 		m_descriptor(descriptor)
 	{
 		if (!descriptor)
-			descriptor = &UIDescriptors::DEFAULT_BUTTON_DESCRIPTOR;
+			descriptor = &Descriptors::DEFAULT_BUTTON_DESCRIPTOR;
 	}
 
 	void Button::triggerCallback() 
@@ -25,7 +25,7 @@ namespace UIElements {
 	}
 
 	Level::Level(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-		MazeLevel* mazeLevel, const UIDescriptors::Level* descriptor, void(*callbackCLick)(Level& level, uint8_t xi, uint8_t yi)):
+		MazeLevel* mazeLevel, const Descriptors::Level* descriptor, void(*callbackCLick)(Level& level, uint8_t xi, uint8_t yi)):
 		m_posX(x),
 		m_posY(y),
 		m_width(width),
@@ -35,7 +35,7 @@ namespace UIElements {
 		m_callbackClick(callbackCLick)
 	{
 		if (!descriptor)
-			descriptor = &UIDescriptors::DEFAULT_LEVEL_DESCRIPTOR;
+			descriptor = &Descriptors::DEFAULT_LEVEL_DESCRIPTOR;
 	}
 
 	void Level::triggerCallback(uint8_t xi, uint8_t yi) {
@@ -69,7 +69,7 @@ namespace UIElements {
 	}
 
 	TileHighlighter::TileHighlighter(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-		const UIDescriptors::TileHighlighter* descriptor):
+		const Descriptors::TileHighlighter* descriptor):
 		m_posX(x),
 		m_posY(y),
 		m_width(width),

@@ -3,11 +3,13 @@
 
 #include "Application.h"
 #include "UIDescriptors.h"
+#include <string>
 
 inline std::unique_ptr<Application> g_application;
 
+inline std::string g_defaultSaveName{"level.mz"};
 
-inline UIDescriptors::Button g_mainMenuButtonsDscr{
+inline Descriptors::Button g_mainMenuButtonsDscr{
 	.idle{
 		.box{
 			.fillColor{ 235, 57, 45, 255 },
@@ -49,7 +51,7 @@ inline UIDescriptors::Button g_mainMenuButtonsDscr{
 	}
 };
 
-inline UIDescriptors::Button g_editorButtonsDscr{
+inline Descriptors::Button g_editorButtonsDscr{
 	.idle{
 		.box{
 			.fillColor{ 235, 57, 45, 255 },
@@ -91,7 +93,7 @@ inline UIDescriptors::Button g_editorButtonsDscr{
 	}
 };
 
-inline UIDescriptors::Border g_editorHighlighterDscr{
+inline Descriptors::Border g_editorHighlighterDscr{
 	.color = { 186, 142, 47, 255 },
 	.thickness = 4
 };

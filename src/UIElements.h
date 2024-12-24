@@ -21,7 +21,7 @@ namespace UIElements {
 	public:
 
 		Button(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const char* label,
-			const UIDescriptors::Button* descriptor, void (*callbackClick)());
+			const Descriptors::Button* descriptor, void (*callbackClick)());
 
 		void triggerCallback();
 
@@ -30,9 +30,9 @@ namespace UIElements {
 		uint32_t getWidth() const { return m_width; }
 		uint32_t getHeight() const { return m_height; }
 		const char* getLabel() const { return m_label; }
-		const UIDescriptors::Button* getDescriptor() const{ return m_descriptor; }
+		const Descriptors::Button* getDescriptor() const{ return m_descriptor; }
 
-		void setDescriptor(const UIDescriptors::Button* descriptor) { m_descriptor = descriptor; }
+		void setDescriptor(const Descriptors::Button* descriptor) { m_descriptor = descriptor; }
 		void setState(UIElementState state) { m_state = state; }
 		UIElementState getState() const { return m_state; }
 		void setCallback(void (*callbackClick)()) { m_callbackClick = callbackClick; }
@@ -45,7 +45,7 @@ namespace UIElements {
 		const char* m_label = nullptr;
 
 		UIElementState m_state = UIElementState::IDLE;
-		const UIDescriptors::Button* m_descriptor = nullptr;
+		const Descriptors::Button* m_descriptor = nullptr;
 		void (*m_callbackClick)();
 	};
 
@@ -60,7 +60,7 @@ namespace UIElements {
 	class Level {
 	public:
 		Level(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-			MazeLevel* mazeLevel, const UIDescriptors::Level* descriptor, void (*callbackClick)(Level& level, uint8_t xi, uint8_t yi));
+			MazeLevel* mazeLevel, const Descriptors::Level* descriptor, void (*callbackClick)(Level& level, uint8_t xi, uint8_t yi));
 
 		void triggerCallback(uint8_t xi, uint8_t yi);
 		uint32_t getX() const { return m_posX; }
@@ -69,7 +69,7 @@ namespace UIElements {
 		uint32_t getHeight() const { return m_height; }
 		uint32_t getTilePaint() const { return m_tilePaint; }
 		const LevelInnerDimensions getInnerDims() const;
-		const UIDescriptors::Level* getDescriptor() const { return m_descriptor; }
+		const Descriptors::Level* getDescriptor() const { return m_descriptor; }
 		const MazeLevel* getMazeLevel() const { return m_mazeLevel; }
 		MazeLevel* getMazeLevel() { return m_mazeLevel; }
 		UIElementState getState() const { return m_state; }
@@ -85,7 +85,7 @@ namespace UIElements {
 
 		uint8_t m_tilePaint = 0;
 
-		const UIDescriptors::Level* m_descriptor;
+		const Descriptors::Level* m_descriptor;
 		UIElementState m_state = UIElementState::IDLE;
 		//TODO: Handle nullptr in constructor (probably weak pointer)
 		MazeLevel* m_mazeLevel = nullptr;
@@ -95,7 +95,7 @@ namespace UIElements {
 
 	class TileHighlighter {
 	public:
-		TileHighlighter(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const UIDescriptors::TileHighlighter* descriptor);
+		TileHighlighter(uint32_t x, uint32_t y, uint32_t width, uint32_t height, const Descriptors::TileHighlighter* descriptor);
 
 		uint32_t getX() const { return m_posX; }
 		uint32_t getY() const { return m_posY; }
@@ -107,14 +107,14 @@ namespace UIElements {
 		void setWidth(uint32_t width) { m_width = width; }
 		void setHeight(uint32_t height) { m_height= height; }
 
-		const UIDescriptors::TileHighlighter* getDescriptor() const { return m_descriptor; }
+		const Descriptors::TileHighlighter* getDescriptor() const { return m_descriptor; }
 	private:
 		uint32_t m_posX;
 		uint32_t m_posY;
 		uint32_t m_width;
 		uint32_t m_height;
 
-		const UIDescriptors::TileHighlighter* m_descriptor;
+		const Descriptors::TileHighlighter* m_descriptor;
 	};
 }
 #endif // !MAZERAY_UIELEMENTS

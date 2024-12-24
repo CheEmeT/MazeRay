@@ -2,6 +2,7 @@
 
 #include "Application.h"
 #include "Globals.h"
+#include <bitset>
 
 int main()
 {

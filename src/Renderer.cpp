@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-Color static toRaylibColor(const UIDescriptors::Color& color) {
+Color static toRaylibColor(const Descriptors::Color& color) {
 	return Color{ color.r, color.g, color.b, color.a };
 }
 
@@ -34,8 +34,8 @@ void Renderer::drawUI(const UIManager& ui) {
 void Renderer::drawUIButton(const UIElements::Button& button) {
 	//Getting apropriate descriptor for state
 	//TODO Weak pointer
-	const UIDescriptors::Button& descriptor = *button.getDescriptor();
-	UIDescriptors::ButtonState stateDescriptor;
+	const Descriptors::Button& descriptor = *button.getDescriptor();
+	Descriptors::ButtonState stateDescriptor;
 	switch (button.getState()) {
 	case UIElements::UIElementState::IDLE:
 		stateDescriptor = descriptor.idle;
@@ -72,7 +72,7 @@ void Renderer::drawUIButton(const UIElements::Button& button) {
 
 void Renderer::drawUILevel(const UIElements::Level& level) {	
 	if (level.getMazeLevel()) {
-		const UIDescriptors::Level& descriptor = *level.getDescriptor();
+		const Descriptors::Level& descriptor = *level.getDescriptor();
 
 		DrawRectangle(level.getX(), level.getY(), level.getWidth(), level.getHeight(), 
 			toRaylibColor(descriptor.background));
@@ -86,19 +86,23 @@ void Renderer::drawMazeLevel(const UIElements::Level& level, bool withBorders)
 {
 	const UIElements::LevelInnerDimensions innerDims = level.getInnerDims();
 	const MazeLevel& mazeLevel = *level.getMazeLevel();
+	const Descriptors::Level& descriptor = *level.getDescriptor();
 	auto& levelData = mazeLevel.getLevelData();
 	for (size_t y = 0; y < mazeLevel.getHeight(); y++)
 		for (size_t x = 0; x < mazeLevel.getWidth(); x++)
 		{
 			size_t index = x + y * mazeLevel.getWidth();
 			Color col = levelData[index] ? WHITE : BLACK;
-			DrawRectangle(
-				innerDims.posX + x * innerDims.tileSize,
-				innerDims.posY + y * innerDims.tileSize,
-				innerDims.tileSize, innerDims.tileSize, col);
+			Rectangle rect{
+				(float)(innerDims.posX + x * innerDims.tileSize),
+				(float)(innerDims.posY + y * innerDims.tileSize),
+				(float)innerDims.tileSize, (float)innerDims.tileSize};
 
-			if (withBorders) {
+			DrawRectangleRec(rect, col);
 
+			if (withBorders && mazeLevel.isBorder(x, y)) 
+			{
+				DrawRectangleLinesEx(rect, 2, GRAY);
 			}
 		}
 }
@@ -107,7 +111,7 @@ void Renderer::drawTileHighlighter(const UIElements::TileHighlighter& highlighte
 {
 	Rectangle rec{ (float)highlighter.getX(), (float)highlighter.getY(), 
 		(float)highlighter.getWidth(), (float)highlighter.getHeight() };
-	const UIDescriptors::TileHighlighter& descriptor = *highlighter.getDescriptor();
+	const Descriptors::TileHighlighter& descriptor = *highlighter.getDescriptor();
 	DrawRectangleLinesEx(rec, descriptor.thickness, toRaylibColor(descriptor.color));
 }
 

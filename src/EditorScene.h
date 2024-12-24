@@ -22,6 +22,11 @@ private:
 };
 
 static void callbackBack();
+static void callbackClear();
+static void callbackFill();
+static void callbackSave();
+static void callbackOpen();
+
 static void callbackLevel(UIElements::Level& level, uint8_t xi, uint8_t yi);
 
 #endif // !MAZERAY_EDITORSCENE
